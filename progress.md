@@ -51,3 +51,14 @@
 ### Notes
 - 需要公开时执行：`gh repo edit michaelx1993/fleet --visibility public --accept-visibility-change-consequences`。公开前注意：fleet.py 的默认配置里有 CPA provider 配置（本机地址，不含密钥），progress.md 里有内部路径。
 - 回滚：`gh repo delete michaelx1993/fleet`（需要 delete_repo 权限）；本地删除 `.git`。
+
+## 2026-09-24 - Task: fleet 仓库改为 public
+
+### What was done
+- 按用户指令执行 `gh repo edit --visibility public`。公开前扫描过全部提交：没有密钥，也没有公司名、内网 IP、内部项目名或记忆库路径；唯一的内部信息是 fleet.py 默认配置里的 CPA 本机地址（127.0.0.1:8317，不含密钥）。
+
+### Testing
+- `gh repo view`：visibility=PUBLIC；未登录访问 `api.github.com/repos/michaelx1993/fleet` 返回 HTTP 200。
+
+### Notes
+- 回滚：`gh repo edit michaelx1993/fleet --visibility private --accept-visibility-change-consequences`（公开期间内容可能已被抓取或缓存，改回私有无法撤销这一点）。
