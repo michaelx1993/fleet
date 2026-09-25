@@ -37,3 +37,17 @@
 - 改动文件：新建 `fleet.py`、`README.md`，追加 `progress.md`。Obsidian：`工作流/codex-启动参数硬规则.md` 加一条订正（CPA 地址现为 127.0.0.1:8317，旧地址 401）、`工作流/agent-fleet扩容-从逐轮驾驶到派单验收.md` 追加章节、`TODO.md` 更新。
 - 沙盒保留在 `/private/tmp/fleet-demo` 供查看（重启后自动消失）；手动清理：`rm -rf /private/tmp/fleet-demo`。
 - 回滚：删除 `fleet.py`、`README.md`；Obsidian 两处按日期段落删除。
+
+## 2026-09-24 - Task: 在 GitHub 新建 fleet 仓库并推送
+
+### What was done
+- 本目录初始化为 git 仓库（main），新增 `.gitignore`（忽略 `__pycache__`、默认运行目录 `/fleet/`），README 标题改为和仓库名一致。
+- 用 `gh repo create` 建了**私有**仓库 https://github.com/michaelx1993/fleet 并推送。
+
+### Testing
+- `gh repo view`：visibility=PRIVATE，默认分支 main；`git ls-remote` 得到的远端 main 等于本地 HEAD（dfd9fec）；远端文件列表与本地提交一致（6 个文件）。
+- 推送前扫描过密钥：没有 token 或私钥形态的字符串，`CPA_API_KEY` 的值不在任何文件里。
+
+### Notes
+- 需要公开时执行：`gh repo edit michaelx1993/fleet --visibility public --accept-visibility-change-consequences`。公开前注意：fleet.py 的默认配置里有 CPA provider 配置（本机地址，不含密钥），progress.md 里有内部路径。
+- 回滚：`gh repo delete michaelx1993/fleet`（需要 delete_repo 权限）；本地删除 `.git`。
